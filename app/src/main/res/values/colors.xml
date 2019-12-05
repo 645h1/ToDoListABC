@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#34675C</color>
+    <color name="colorPrimaryDark">#708f36</color>
+    <color name="colorAccent">#86AC41</color>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="gray">#e5e5e5</color>
+    <color name="bluePine">#324851</color>
+    <color name="newGrass">#86AC41</color>
+    <color name="reflection">#34675C</color>
+    <color name="mistery">#7DA3A1</color>
+    <color name="deletiful">#8b2e2e</color>
+
+</resources>
