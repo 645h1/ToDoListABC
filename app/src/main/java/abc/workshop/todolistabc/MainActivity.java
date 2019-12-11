@@ -1,19 +1,18 @@
 package abc.workshop.todolistabc;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -53,12 +52,12 @@ public class MainActivity extends AppCompatActivity {
         createUserAnytime(uniqueIdTillDeviceReset);
     }
 
-    private void interactionListener(){
+    private void interactionListener() {
         profileTextview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent profileIntent = new Intent(MainActivity.this,ProfileActivity.class);
-                profileIntent.putExtra("deviceId",uniqueIdTillDeviceReset);
+                Intent profileIntent = new Intent(MainActivity.this, ProfileActivity.class);
+                profileIntent.putExtra("deviceId", uniqueIdTillDeviceReset);
                 startActivity(profileIntent);
             }
         });
@@ -66,21 +65,21 @@ public class MainActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                createTodo(todoNameEdittext.getText().toString(),uniqueIdTillDeviceReset);
+                createTodo(todoNameEdittext.getText().toString(), uniqueIdTillDeviceReset);
             }
         });
 
     }
 
-    private void initList(){
+    private void initList() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         adapter = new TodoAdapter(this, uniqueIdTillDeviceReset);
         todoRecycleView.setLayoutManager(linearLayoutManager);
         todoRecycleView.setAdapter(adapter);
     }
 
-    private void createUserAnytime(final String id){
-        APIInterface  apiInterface = APIClient.getClient().create(APIInterface.class);
+    private void createUserAnytime(final String id) {
+        APIInterface apiInterface = APIClient.getAPIInterface();
         Call<ResponseBody> call = apiInterface.createUser(id);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -95,50 +94,58 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void createTodo(String todoTitle, final String userId){
-        loaderLayout.setVisibility(View.VISIBLE);
-        APIInterface  apiInterface = APIClient.getClient().create(APIInterface.class);
-        TodoObject todoToBeCreated = new TodoObject();
-        todoToBeCreated.setCompleted(false);
-        todoToBeCreated.setTitle(todoTitle);
-        todoToBeCreated.setDescription(" ");
-        todoToBeCreated.setUserId(userId);
+    private void createTodo(String todoTitle, final String userId) {
 
-        Call<ResponseBody> call = apiInterface.createTodo(todoToBeCreated);
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                loaderLayout.setVisibility(View.GONE);
-                getTodos(userId);
-                todoNameEdittext.setText("");
-                Toast.makeText(MainActivity.this,"Your awesome todo is created!",Toast.LENGTH_SHORT).show();
-            }
+        APIInterface apiInterface = APIClient.getAPIInterface();
+        if (!todoTitle.equals("") && todoTitle != null && todoTitle.length()!=0) {
+            loaderLayout.setVisibility(View.VISIBLE);
+            TodoObject todoToBeCreated = new TodoObject();
+            todoToBeCreated.setCompleted(false);
+            todoToBeCreated.setTitle(todoTitle);
+            todoToBeCreated.setUserId(userId);
 
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                loaderLayout.setVisibility(View.GONE);
-                Toast.makeText(MainActivity.this,"Oops something went wrong :(",Toast.LENGTH_SHORT).show();
-               call.cancel();
-            }
-        });
+            Call<ResponseBody> call = apiInterface.createTodo(todoToBeCreated);
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    loaderLayout.setVisibility(View.GONE);
+                    if (response.code() == 200) {
+                        getTodos(userId);
+                        todoNameEdittext.setText("");
+                        Toast.makeText(MainActivity.this, "Your awesome todo is created!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    loaderLayout.setVisibility(View.GONE);
+                    Toast.makeText(MainActivity.this, "Oops something went wrong :(", Toast.LENGTH_SHORT).show();
+                    call.cancel();
+                }
+            });
+        } else {
+
+            Toast.makeText(MainActivity.this, "Please fill in the todo", Toast.LENGTH_SHORT).show();
+
+        }
     }
 
-    private void getTodos(String userId){
+    private void getTodos(String userId) {
         loaderLayout.setVisibility(View.VISIBLE);
-        APIInterface  apiInterface = APIClient.getClient().create(APIInterface.class);
+        APIInterface apiInterface = APIClient.getAPIInterface();
         Call<ArrayList<TodoObject>> call = apiInterface.getTodosByUser(userId);
         call.enqueue(new Callback<ArrayList<TodoObject>>() {
             @Override
             public void onResponse(Call<ArrayList<TodoObject>> call, Response<ArrayList<TodoObject>> response) {
                 loaderLayout.setVisibility(View.GONE);
                 if (response.code() == 200)
-                adapter.setmData(response.body());
+                    adapter.setmData(response.body());
             }
 
             @Override
             public void onFailure(Call<ArrayList<TodoObject>> call, Throwable t) {
                 loaderLayout.setVisibility(View.GONE);
-                Toast.makeText(MainActivity.this,"Oops something went wrong :(",Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Oops something went wrong :(", Toast.LENGTH_SHORT).show();
                 call.cancel();
             }
         });

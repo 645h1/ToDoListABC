@@ -60,7 +60,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void getProfile(String userId){
         loaderLayout.setVisibility(View.VISIBLE);
-        APIInterface apiInterface = APIClient.getClient().create(APIInterface.class);
+        APIInterface apiInterface =APIClient.getAPIInterface();
         Call<ProfileResponse> call = apiInterface.getProfile(userId);
         call.enqueue(new Callback<ProfileResponse>() {
             @Override
@@ -84,7 +84,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void updateProfile(){
         loaderLayout.setVisibility(View.VISIBLE);
-        APIInterface apiInterface = APIClient.getClient().create(APIInterface.class);
+        APIInterface apiInterface = APIClient.getAPIInterface();
         Call<ResponseBody> call = apiInterface.updateProfile(profile);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
