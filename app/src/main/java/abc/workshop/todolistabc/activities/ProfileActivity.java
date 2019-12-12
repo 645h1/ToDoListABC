@@ -1,4 +1,4 @@
-package abc.workshop.todolistabc;
+package abc.workshop.todolistabc.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,10 +10,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
+import abc.workshop.todolistabc.R;
 import abc.workshop.todolistabc.api.APIClient;
 import abc.workshop.todolistabc.api.APIInterface;
+import abc.workshop.todolistabc.model.ProfileResponse;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;

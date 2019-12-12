@@ -2,8 +2,8 @@ package abc.workshop.todolistabc.api;
 
 import java.util.ArrayList;
 
-import abc.workshop.todolistabc.ProfileResponse;
-import abc.workshop.todolistabc.TodoObject;
+import abc.workshop.todolistabc.model.ProfileResponse;
+import abc.workshop.todolistabc.model.TodoObject;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;

@@ -1,4 +1,4 @@
-package abc.workshop.todolistabc;
+package abc.workshop.todolistabc.model;
 
 public class ProfileResponse {
 

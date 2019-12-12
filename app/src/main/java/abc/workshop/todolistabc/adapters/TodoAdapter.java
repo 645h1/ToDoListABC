@@ -2,7 +2,6 @@ package abc.workshop.todolistabc.adapters;
 
 import android.content.Context;
 import android.graphics.Paint;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import abc.workshop.todolistabc.R;
-import abc.workshop.todolistabc.TodoObject;
+import abc.workshop.todolistabc.model.TodoObject;
 import abc.workshop.todolistabc.api.APIClient;
 import abc.workshop.todolistabc.api.APIInterface;
 import okhttp3.ResponseBody;

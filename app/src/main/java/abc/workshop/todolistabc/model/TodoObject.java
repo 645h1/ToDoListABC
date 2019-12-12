@@ -1,22 +1,18 @@
-package abc.workshop.todolistabc;
+package abc.workshop.todolistabc.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class TodoObject {
 
-    @SerializedName("id")
-    @Expose
+
     private int id;
-    @SerializedName("title")
-    @Expose
+
     private String title;
-    @SerializedName("completed")
-    @Expose
+
     private Boolean completed;
-    @SerializedName("user_id")
-    @Expose
-    private String userId;
+
+    private String user_id;
 
     public int getId() {
         return id;
@@ -39,11 +35,11 @@ public class TodoObject {
     }
 
     public String getUserId() {
-        return userId;
+        return user_id;
     }
 
     public void setUserId(String userId) {
-        this.userId = userId;
+        this.user_id = userId;
     }
 
 }

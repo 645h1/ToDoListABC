@@ -1,4 +1,4 @@
-package abc.workshop.todolistabc;
+package abc.workshop.todolistabc.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,9 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
+import abc.workshop.todolistabc.R;
 import abc.workshop.todolistabc.adapters.TodoAdapter;
 import abc.workshop.todolistabc.api.APIClient;
 import abc.workshop.todolistabc.api.APIInterface;
+import abc.workshop.todolistabc.model.TodoObject;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
